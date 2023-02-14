@@ -40,7 +40,7 @@ conn.connect(function (err) {
 app.get('/', function (req, res) {
   res.render('index', {
     text: "", intents: [],
-    entities: {}, queryResult: []
+    entities: [], queryResults: []
   });
 });
 
@@ -50,7 +50,7 @@ app.post('/ask-movies', (req, res) => {
       console.log(data);
       let intents = data.intents ? data.intents : []
       let entities = data.entities ? data.entities : {}
-      var queryResult = [];
+      var queryResults = [];
       debugger;
       if (intents.length === 0 && Object.keys(entities).length === 0) {
         res.render('index', {

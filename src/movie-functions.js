@@ -64,7 +64,7 @@ function queryActors(name, conn, callback) {
     name.forEach(item => {
         conditions.push("LOWER(imdb.name) LIKE '%" + item.toLowerCase() + "%'");
     });
-    sql = `select name, year from imdb where ${conditions.join(" OR ")}`
+    sql = `select name, actors from imdb where ${conditions.join(" OR ")}`
     console.log(`sql = ${sql}`);
     conn.query(sql, function (err, result) {
         if (err) {
