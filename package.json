@@ -1,11 +1,11 @@
 {
-  "name": "movie-wit-bot",
+"name": "movie-wit-bot",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start-reload": "nodemon index.js"
+    "start-reload": "nodemon src/index.js"
   },
   "author": "",
   "license": "ISC",
