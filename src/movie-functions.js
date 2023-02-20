@@ -13,7 +13,7 @@ function queryRank(ranks, conn, callback) {
     }
     sql = `select name, year from imdb where rank_ ${condition}`
     console.log(`sql = ${sql}`);
-    conn.query(sql, function (err, result) {
+    conn.execute(sql, function (err, result) {
         if (err) {
             console.error(err);
         }
@@ -40,7 +40,7 @@ function queryYear(movie_names, conn, callback) {
     });
     sql = `select name, year from imdb where ${conditions.join(" OR ")}`
     console.log(`sql = ${sql}`);
-    conn.query(sql, function (err, result) {
+    conn.execute(sql, function (err, result) {
         if (err) {
             console.error(err);
         }
@@ -66,7 +66,7 @@ function queryActors(movie_names, conn, callback) {
     });
     sql = `select name, actors from imdb where ${conditions.join(" OR ")}`
     console.log(`sql = ${sql}`);
-    conn.query(sql, function (err, result) {
+    conn.execute(sql, function (err, result) {
         if (err) {
             console.error(err);
         }
@@ -89,7 +89,7 @@ function queryDirector(movie_names, conn, callback) {
     });
     sql = `select name, director from imdb where ${conditions.join(" OR ")}`
     console.log(`sql = ${sql}`);
-    conn.query(sql, function (err, result) {
+    conn.execute(sql, function (err, result) {
         if (err) {
             console.error(err);
         } else {
@@ -111,7 +111,7 @@ function queryRating(movie_names, conn, callback) {
     });
     sql = `select name, rating from imdb where ${conditions.join(" OR ")}`
     console.log(`sql = ${sql}`);
-    conn.query(sql, function (err, result) {
+    conn.execute(sql, function (err, result) {
         if (err) {
             console.error(err);
         }
@@ -134,7 +134,7 @@ function queryGenre(movie_genre, conn, callback) {
     });
     sql = `select name, year, rating from imdb where ${conditions.join(" OR ")}`
     console.log(`sql = ${sql}`);
-    conn.query(sql, function (err, result) {
+    conn.execute(sql, function (err, result) {
         if (err) {
             console.error(err);
         }
@@ -162,7 +162,7 @@ function queryDirectorMovies(director_names, conn, callback) {
     });
     sql = `select name, year, director from imdb where ${conditions.join(" OR ")}`
     console.log(`sql = ${sql}`);
-    conn.query(sql, function (err, result) {
+    conn.execute(sql, function (err, result) {
         if (err) {
             console.error(err);
         }
