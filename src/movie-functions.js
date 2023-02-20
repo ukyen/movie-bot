@@ -5,11 +5,11 @@ function _processRankStr(rankStr) {
     return rankStr.replace(/(\d+)(st|nd|rd|th)/, "$1");
 }
 
-function queryRank(rank, conn, callback) {
-    if (rank.length === 1) {
-        condition = "= " + _processRankStr(rank[0]);
+function queryRank(ranks, conn, callback) {
+    if (ranks.length === 1) {
+        condition = "= " + _processRankStr(ranks[0]);
     } else {
-        condition = "BETWEEN " + _processRankStr(rank[0]) + " AND " + _processRankStr(rank[1]);
+        condition = "BETWEEN " + _processRankStr(ranks[0]) + " AND " + _processRankStr(ranks[1]);
     }
     sql = `select name, year from imdb where rank_ ${condition}`
     console.log(`sql = ${sql}`);
@@ -33,9 +33,9 @@ function queryRank(rank, conn, callback) {
 }
 
 
-function queryYear(name, conn, callback) {
+function queryYear(movie_names, conn, callback) {
     conditions = []
-    name.forEach(item => {
+    movie_names.forEach(item => {
         conditions.push("LOWER(imdb.name) LIKE '%" + item.toLowerCase() + "%'");
     });
     sql = `select name, year from imdb where ${conditions.join(" OR ")}`
@@ -59,9 +59,9 @@ function queryYear(name, conn, callback) {
     });
 }
 
-function queryActors(name, conn, callback) {
+function queryActors(movie_names, conn, callback) {
     conditions = []
-    name.forEach(item => {
+    movie_names.forEach(item => {
         conditions.push("LOWER(imdb.name) LIKE '%" + item.toLowerCase() + "%'");
     });
     sql = `select name, actors from imdb where ${conditions.join(" OR ")}`
@@ -82,9 +82,9 @@ function queryActors(name, conn, callback) {
     });
 }
 
-function queryDirector(name, conn, callback) {
+function queryDirector(movie_names, conn, callback) {
     conditions = []
-    name.forEach(item => {
+    movie_names.forEach(item => {
         conditions.push("LOWER(imdb.name) LIKE '%" + item.toLowerCase() + "%'");
     });
     sql = `select name, director from imdb where ${conditions.join(" OR ")}`
@@ -104,9 +104,9 @@ function queryDirector(name, conn, callback) {
     });
 }
 
-function queryRating(name, conn, callback) {
+function queryRating(movie_names, conn, callback) {
     conditions = []
-    name.forEach(item => {
+    movie_names.forEach(item => {
         conditions.push("LOWER(imdb.name) LIKE '%" + item.toLowerCase() + "%'");
     });
     sql = `select name, rating from imdb where ${conditions.join(" OR ")}`
@@ -127,9 +127,9 @@ function queryRating(name, conn, callback) {
     });
 }
 
-function queryGenre(genre, conn, callback) {
+function queryGenre(movie_genre, conn, callback) {
     conditions = []
-    genre.forEach(item => {
+    movie_genre.forEach(item => {
         conditions.push("LOWER(imdb.genre) LIKE '%" + item.toLowerCase() + "%'");
     });
     sql = `select name, year, rating from imdb where ${conditions.join(" OR ")}`
@@ -155,9 +155,9 @@ function queryGenre(genre, conn, callback) {
 }
 
 
-function queryDirectorMovies(name, conn, callback) {
+function queryDirectorMovies(director_names, conn, callback) {
     conditions = []
-    name.forEach(item => {
+    director_names.forEach(item => {
         conditions.push("LOWER(imdb.director) LIKE '%" + item.toLowerCase() + "%'");
     });
     sql = `select name, year, director from imdb where ${conditions.join(" OR ")}`

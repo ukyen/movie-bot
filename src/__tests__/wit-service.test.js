@@ -1,4 +1,4 @@
-const WitService = require('./wit-service');
+const WitService = require('../wit-service');
 require('dotenv').config();
 require("jest-playback").setup(__dirname);
 
