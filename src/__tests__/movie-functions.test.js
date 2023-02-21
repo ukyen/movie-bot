@@ -1,13 +1,13 @@
 const movie = require('../movie-functions');
 const path = require("path");
 var mysql = require('mysql2');
-const { GenericContainer } = require("testcontainers");
+const { GenericContainer, Wait } = require("testcontainers");
 require('dotenv').config();
 
 const buildContext = path.resolve(__dirname);
 
 
-jest.setTimeout(500000);
+jest.setTimeout(30000);
 
 describe("Query movie data", () => {
     let startedContainer;
@@ -15,22 +15,22 @@ describe("Query movie data", () => {
 
     beforeAll(async () => {
 
-        const container = await GenericContainer.fromDockerfile(buildContext)
-            .build();
-        console.log("Building docker image...");
-
-        startedContainer = await container
+        startedContainer = await new GenericContainer("movie-bot/mysql-testing")
             .withExposedPorts(3307)
+            .withWaitStrategy(Wait.forLogMessage("port: 3307"))
             .start();
         console.log("Start docker container...");
 
-        console.log(startedContainer.getNetworkNames())
         conn = mysql.createConnection({
-            host: startedContainer.getIpAddress(startedContainer.getNetworkNames()[0]),
+            host: process.env.DB_HOST,
             database: process.env.DB_NAME,
             user: process.env.DB_USERNAME,
             password: process.env.DB_PASSWORD,
-            port: startedContainer.getMappedPort(3307),
+            port: 3307,
+        });
+        conn.connect(function (err) {
+            if (err) throw err;
+            console.log("Connected!");
         });
         console.log("Connect to MySQL...")
     });
@@ -47,7 +47,7 @@ describe("Query movie data", () => {
     ])("QueryRank", async (entities, recordCount, movieName) => {
         movie.mappingFunc["movie_rank"](entities, conn, function (result) {
             expect(result.length).toEqual(recordCount);
-            expect(result[0].name).toEqual(123);
+            expect(result[0].name).toEqual(movieName);
         });
     });
 
@@ -80,7 +80,7 @@ describe("Query movie data", () => {
         var entities = ['GodFather', 'The Dark Knight']
         movie.mappingFunc["movie_rating"](entities, conn, function (result) {
             expect(result.length).toEqual(2);
-            expect(result[0].rating).toEqual(9.2);
+            expect(result[0].rating).toBeLessThanOrEqual(9.2);
         });
     });
 

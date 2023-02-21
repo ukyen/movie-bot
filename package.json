@@ -4,6 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "pretest": "docker build src/__tests__ -t movie-bot/mysql-testing",
         "test": "jest",
         "start-reload": "nodemon src/index.js"
     },
