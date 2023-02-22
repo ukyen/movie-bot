@@ -1,7 +1,9 @@
-const wit = require('../wit-service');
+// Third-party
 require('dotenv').config();
 require("jest-playback").setup(__dirname);
 
+// Internal
+const wit = require('../wit-service');
 
 describe("WitService.query", () => {
 

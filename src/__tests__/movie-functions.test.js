@@ -1,12 +1,14 @@
-const movie = require('../movie-functions');
+// Third-party
 const path = require("path");
 var mysql = require('mysql2');
 const { GenericContainer, Wait } = require("testcontainers");
 require('dotenv').config();
 
+// Internal
+const movie = require('../movie-functions');
+
+
 const buildContext = path.resolve(__dirname);
-
-
 jest.setTimeout(30000);
 
 describe("Query movie data", () => {
