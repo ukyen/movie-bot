@@ -1,4 +1,7 @@
-const { Wit } = require('node-wit');
+// Third-party
+const { Wit, log } = require('node-wit');
+require('dotenv').config()
+
 
 class WitService {
   constructor(accessToken, logger) {
@@ -31,4 +34,7 @@ class WitService {
   }
 }
 
-module.exports = WitService;
+module.exports = new WitService(
+  process.env.WIT_API_KEY,
+  new log.Logger(log.INFO)
+)
