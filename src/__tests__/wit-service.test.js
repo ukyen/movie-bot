@@ -1,8 +1,6 @@
-const WitService = require('../wit-service');
+const wit = require('../wit-service');
 require('dotenv').config();
 require("jest-playback").setup(__dirname);
-
-const wit = new WitService(process.env.WIT_API_KEY)
 
 
 describe("WitService.query", () => {
