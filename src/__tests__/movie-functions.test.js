@@ -1,7 +1,7 @@
 // Third-party
 const path = require("path");
 var mysql = require('mysql2');
-const { GenericContainer, Wait } = require("testcontainers");
+const { DockerComposeEnvironment } = require("testcontainers");
 require('dotenv').config();
 
 // Internal
@@ -12,15 +12,15 @@ const buildContext = path.resolve(__dirname);
 jest.setTimeout(30000);
 
 describe("Query movie data", () => {
-    let startedContainer;
+    let environment;
     let conn;
 
     beforeAll(async () => {
 
-        startedContainer = await new GenericContainer("movie-bot/mysql-testing")
-            .withExposedPorts(3307)
-            .withWaitStrategy(Wait.forLogMessage("port: 3307"))
-            .start();
+        const composeFile = "docker-compose.yml";
+    
+        environment = await new DockerComposeEnvironment(buildContext, "docker-compose.yml").up();
+        let startedContainer = environment.getContainer("mysql-testing");
         console.log("Start docker container...");
 
         conn = mysql.createConnection({
@@ -38,7 +38,7 @@ describe("Query movie data", () => {
     });
 
     afterAll(async () => {
-        await startedContainer.stop();
+        await environment.down();
     });
 
     test.each([
