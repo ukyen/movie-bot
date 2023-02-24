@@ -1,0 +1,49 @@
+{
+  "scope": "https://api.wit.ai:443",
+  "method": "GET",
+  "path": "/message?q=What%27s%20the%201st%20ranked%20movie%3F&v=20220801",
+  "body": "",
+  "status": 200,
+  "response": {
+    "entities": {
+      "rank:rank": [
+        {
+          "body": "1st",
+          "confidence": 0.9995,
+          "end": 14,
+          "entities": {},
+          "id": "552377270258521",
+          "name": "rank",
+          "role": "rank",
+          "start": 11,
+          "type": "value",
+          "value": "1st"
+        }
+      ]
+    },
+    "intents": [
+      {
+        "confidence": 0.9963695959110688,
+        "id": "874089400581769",
+        "name": "movie_rank"
+      }
+    ],
+    "text": "What's the 1st ranked movie?",
+    "traits": {}
+  },
+  "rawHeaders": [
+    "Content-Type",
+    "application/json",
+    "Access-Control-Allow-Origin",
+    "*",
+    "Access-Control-Allow-Headers",
+    "*",
+    "Date",
+    "Fri, 10 Feb 2023 14:21:27 GMT",
+    "Connection",
+    "close",
+    "Content-Length",
+    "498"
+  ],
+  "responseIsBinary": false
+}

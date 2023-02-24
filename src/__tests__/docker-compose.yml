@@ -1,0 +1,6 @@
+services:
+  web:
+    build: .
+    container_name: mysql-testing
+    ports:
+      - "3307:3307"

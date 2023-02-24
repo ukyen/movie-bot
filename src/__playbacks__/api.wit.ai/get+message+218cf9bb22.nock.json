@@ -1,0 +1,28 @@
+{
+  "scope": "https://api.wit.ai:443",
+  "method": "GET",
+  "path": "/message?q=How%20are%20you%3F&v=20220801",
+  "body": "",
+  "status": 200,
+  "response": {
+    "entities": {},
+    "intents": [],
+    "text": "How are you?",
+    "traits": {}
+  },
+  "rawHeaders": [
+    "Content-Type",
+    "application/json",
+    "Access-Control-Allow-Origin",
+    "*",
+    "Access-Control-Allow-Headers",
+    "*",
+    "Date",
+    "Fri, 10 Feb 2023 14:21:27 GMT",
+    "Connection",
+    "close",
+    "Content-Length",
+    "79"
+  ],
+  "responseIsBinary": false
+}
