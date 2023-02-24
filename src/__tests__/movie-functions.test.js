@@ -6,6 +6,7 @@ require('dotenv').config();
 
 // Internal
 const movie = require('../movie-functions');
+const { DBConnection } = require('../db');
 
 
 const buildContext = path.resolve(__dirname);
@@ -23,18 +24,16 @@ describe("Query movie data", () => {
         let startedContainer = environment.getContainer("mysql-testing");
         console.log("Start docker container...");
 
-        conn = mysql.createConnection({
+        const sqlClient = mysql.createConnection({
             host: process.env.DB_HOST,
             database: process.env.DB_NAME,
             user: process.env.DB_USERNAME,
             password: process.env.DB_PASSWORD,
             port: 3307,
         });
-        conn.connect(function (err) {
-            if (err) throw err;
-            console.log("Connected!");
-        });
-        console.log("Connect to MySQL...")
+        conn = new DBConnection(sqlClient);
+
+        console.log("Connect to DB...")
     });
 
     afterAll(async () => {

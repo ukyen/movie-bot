@@ -12,23 +12,18 @@ async function queryRank(ranks, conn) {
         condition = "BETWEEN " + _processRankStr(ranks[0]) + " AND " + _processRankStr(ranks[1]);
     }
     sql = `select name, year from imdb where rank_ ${condition}`
-    console.log(`sql = ${sql}`);
-    return new Promise((resolve, reject) => {
-        conn.execute(sql, function (err, result) {
-            if (err) {
-                reject(err);
-            }
-            queryResults = []
-            result.forEach(item => {
-                queryResults.push(
-                    {
-                        name: item.name,
-                        year: item.year
-                    }
-                );
-            });
-            resolve(queryResults);
+    return new Promise(async (resolve) => {
+        result = await conn.execute(sql);
+        queryResults = []
+        result.forEach(item => {
+            queryResults.push(
+                {
+                    name: item.name,
+                    year: item.year
+                }
+            );
         });
+        resolve(queryResults);
     });
 };
 
@@ -39,23 +34,18 @@ async function queryYear(movie_names, conn) {
         conditions.push("LOWER(imdb.name) LIKE '%" + item.toLowerCase() + "%'");
     });
     sql = `select name, year from imdb where ${conditions.join(" OR ")}`
-    console.log(`sql = ${sql}`);
-    return new Promise((resolve, reject) => {
-        conn.execute(sql, function (err, result) {
-            if (err) {
-                reject(err);
-            }
-            queryResults = []
-            result.forEach(item => {
-                queryResults.push(
-                    {
-                        name: item.name,
-                        year: item.year
-                    }
-                );
-            });
-            resolve(queryResults);
+    return new Promise(async (resolve) => {
+        result = await conn.execute(sql);
+        queryResults = []
+        result.forEach(item => {
+            queryResults.push(
+                {
+                    name: item.name,
+                    year: item.year
+                }
+            );
         });
+        resolve(queryResults);
     });
 }
 
@@ -65,20 +55,15 @@ async function queryActors(movie_names, conn) {
         conditions.push("LOWER(imdb.name) LIKE '%" + item.toLowerCase() + "%'");
     });
     sql = `select name, actors from imdb where ${conditions.join(" OR ")}`
-    console.log(`sql = ${sql}`);
-    return new Promise((resolve, reject) => {
-        conn.execute(sql, function (err, result) {
-            if (err) {
-                reject(err);
-            }
-            queryResults = []
-            result.forEach(item => {
-                queryResults.push(
-                    { name: item.name, actors: item.actors }
-                );
-            });
-            resolve(queryResults);
+    return new Promise(async (resolve) => {
+        result = await conn.execute(sql);
+        queryResults = []
+        result.forEach(item => {
+            queryResults.push(
+                { name: item.name, actors: item.actors }
+            );
         });
+        resolve(queryResults);
     })
 }
 
@@ -88,20 +73,15 @@ async function queryDirector(movie_names, conn) {
         conditions.push("LOWER(imdb.name) LIKE '%" + item.toLowerCase() + "%'");
     });
     sql = `select name, director from imdb where ${conditions.join(" OR ")}`
-    console.log(`sql = ${sql}`);
-    return new Promise((resolve, reject) => {
-        conn.execute(sql, function (err, result) {
-            if (err) {
-                reject(err);
-            }
-            queryResults = []
-            result.forEach(item => {
-                queryResults.push(
-                    { name: item.name, director: item.director }
-                );
-            });
-            resolve(queryResults);
+    return new Promise(async (resolve) => {
+        result = await conn.execute(sql);
+        queryResults = []
+        result.forEach(item => {
+            queryResults.push(
+                { name: item.name, director: item.director }
+            );
         });
+        resolve(queryResults);
     })
 }
 
@@ -111,20 +91,15 @@ async function queryRating(movie_names, conn) {
         conditions.push("LOWER(imdb.name) LIKE '%" + item.toLowerCase() + "%'");
     });
     sql = `select name, rating from imdb where ${conditions.join(" OR ")}`
-    console.log(`sql = ${sql}`);
-    return new Promise((resolve, reject) => {
-        conn.execute(sql, function (err, result) {
-            if (err) {
-                reject(err);
-            }
-            queryResults = []
-            result.forEach(item => {
-                queryResults.push(
-                    { name: item.name, rating: item.rating }
-                );
-            });
-            resolve(queryResults);
+    return new Promise(async (resolve) => {
+        result = await conn.execute(sql);
+        queryResults = []
+        result.forEach(item => {
+            queryResults.push(
+                { name: item.name, rating: item.rating }
+            );
         });
+        resolve(queryResults);
     })
 }
 
@@ -135,23 +110,19 @@ async function queryGenre(movie_genre, conn) {
     });
     sql = `select name, year, rating from imdb where ${conditions.join(" OR ")}`
     console.log(`sql = ${sql}`);
-    return new Promise((resolve, reject) => {
-        conn.execute(sql, function (err, result) {
-            if (err) {
-                reject(err);
-            }
-            queryResults = []
-            result.forEach(item => {
-                queryResults.push(
-                    {
-                        name: item.name,
-                        year: item.year,
-                        rating: item.rating
-                    }
-                )
-            });
-            resolve(queryResults);
+    return new Promise(async (resolve) => {
+        result = await conn.execute(sql);
+        queryResults = []
+        result.forEach(item => {
+            queryResults.push(
+                {
+                    name: item.name,
+                    year: item.year,
+                    rating: item.rating
+                }
+            )
         });
+        resolve(queryResults);
     })
 }
 
@@ -162,24 +133,19 @@ async function queryDirectorMovies(director_names, conn) {
         conditions.push("LOWER(imdb.director) LIKE '%" + item.toLowerCase() + "%'");
     });
     sql = `select name, year, director from imdb where ${conditions.join(" OR ")}`
-    console.log(`sql = ${sql}`);
-    return new Promise((resolve, reject) => {
-        conn.execute(sql, function (err, result) {
-            if (err) {
-                reject(err);
-            }
-            queryResults = []
-            result.forEach(item => {
-                queryResults.push(
-                    {
-                        name: item.name,
-                        year: item.year,
-                        director: item.director
-                    }
-                )
-            });
-            resolve(queryResults);
+    return new Promise(async (resolve) => {
+        result = await conn.execute(sql);
+        queryResults = []
+        result.forEach(item => {
+            queryResults.push(
+                {
+                    name: item.name,
+                    year: item.year,
+                    director: item.director
+                }
+            )
         });
+        resolve(queryResults);
     })
 }
 

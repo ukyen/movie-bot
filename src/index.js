@@ -1,13 +1,15 @@
 // Third-party
 const { log } = require('node-wit');
-const express = require('express')
-const bodyParser = require('body-parser')
+const express = require('express');
+const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 require('dotenv').config();
+
 
 // Internal
 const movies = require('./movie-functions');
 const witClient = require('./wit-service');
+const { DBConnection } = require('./db');
 
 
 const app = express();
@@ -20,18 +22,15 @@ app.use(bodyParser.urlencoded({
 
 app.set('view engine', 'ejs');
 
-const conn = mysql.createConnection({
+const sqlClient = mysql.createConnection({
   host: process.env.DB_HOST,
   database: process.env.DB_NAME,
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
 
-conn.connect(function (err) {
-  if (err) throw err;
-  console.log("Connected!");
-});
-
+const conn = new DBConnection(sqlClient);
 
 app.get('/', function (req, res) {
   res.render('index', {
